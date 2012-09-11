@@ -1,0 +1,121 @@
+<!doctype html>
+<head xmlns="http://www.w3.org/1999/html">
+        <title>Chip 8 Emulator</title>
+    </head>
+    <link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
+
+    <style>
+
+        body {
+            font-family: sans-serif;
+            font-size: 80%;
+        }
+
+        h1 {
+            font-family: "Press Start 2P", sans-serif;
+        }
+
+        canvas {
+            position: relative;
+            border: 1px solid #ccc;
+            background: #000;
+        }
+        
+    </style>
+
+    <body>
+
+        <h1>HuPo - Chip-8 Emulator</h1>
+        <h2>By <a href="http://alexanderdickson.com">Alex Dickson</a></h2>
+
+        <p>Based on <a href="http://devernay.free.fr/hacks/chip8/C8TECH10.HTM">Cowgod's Chip-8 Technical Reference</a>.</p>
+
+        <form action="" id="loader">
+            <select><option></option></select>
+            <button type="submit">Load</button>
+        </form>
+
+	    <canvas></canvas>
+
+        <script src="scripts/polyfills.js"></script>
+        <script src="scripts/renderer.js"></script>
+        <script src="scripts/chip8.js"></script>
+        <script>
+            (function() {
+
+                var ch = new Chip8;
+
+                ch.setRenderer(new CanvasRenderer(document.getElementsByTagName("canvas")[0], ch.getDisplayWidth(), ch.getDisplayHeight(), 16));
+
+                var form = document.querySelector("#loader"),
+                    select = form.querySelector("select");
+
+                var roms = ["15PUZZLE", "BLINKY", "BLITZ", "BRIX", "CONNECT4", "GUESS", "HIDDEN", "IBM", "INVADERS", "KALEID", "MAZE", "MERLIN", "MISSILE", "PONG", "PONG2", "PUZZLE", "SYZYGY", "TANK", "TETRIS", "TICTAC", "UFO", "VBRIX", "VERS", "WIPEOFF"];
+
+                roms.forEach(function(rom) {
+                    var option = document.createElement("option");
+                    option.textContent = rom;
+                    select.add(option);
+                });
+
+                form.addEventListener("submit", function(event) {
+                    event.preventDefault();
+
+                    var value = select.value;
+
+                    if ( ! value) {
+                        alert("Please select a ROM.");
+                        return;
+                    }
+
+                    // Load program.
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "roms/" + value, true);
+                    xhr.responseType = "arraybuffer";
+
+                    xhr.onload = function () {
+                        ch.stop();
+                        ch.reset();
+                        ch.loadProgram(new Uint8Array(xhr.response));
+                        ch.start();
+                    };
+
+                    xhr.send();
+
+                });
+
+
+
+                // Key handling.
+                var translateKeys = {
+                    103: 0x1, // 7
+                    104: 0x2, // 8
+                    105: 0x3, // 9
+                    100: 0x4, // 4
+                    101: 0x5, // 5
+                    102: 0x6, // 6,
+                    97: 0x7,  // 1
+                    98: 0x8,  // 2
+                    99: 0x9,  // 3
+                    96: 0xA,  // 0
+                    45: 0xB,  // Insert
+                    46: 0xC,  // Delete
+                    36: 0xD,  // Home
+                    25: 0xE,  // End
+                    33: 0xF,  // PageUp
+                    34: 0x10  // PageDown
+                    }
+
+                document.addEventListener("keydown", function(event) {
+                    ch.setKey(translateKeys[event.keyCode]);
+                });
+
+                document.addEventListener("keyup", function(event) {
+                    ch.unsetKey(translateKeys[event.keyCode]);
+                });
+
+            })();
+        </script>
+
+    </body>
+</html>
