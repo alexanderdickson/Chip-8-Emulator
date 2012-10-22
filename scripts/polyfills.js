@@ -10,5 +10,10 @@ window.requestAnimFrame = (function () {
 })();
 
 Function.prototype.bind = Function.prototype.bind || function(context) {
-    return this.apply(context, arguments);
-}
+    var boundArgs = [].slice.call(arguments, 1);
+    var boundFn = this;
+
+    return function() {        
+        return boundFn.apply(context, boundArgs.concat([].slice.call(arguments)));
+    };
+};
