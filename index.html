@@ -20,22 +20,34 @@
             border: 1px solid #ccc;
             background: #000;
         }
-        
+		
+		label::after {
+			content: ":";
+		}
+		
+		p,
+		p a {
+			color: #444;
+		}
+
     </style>
 
     <body>
 
-        <h1>HuPo - Chip-8 Emulator</h1>
-        <h2>By <a href="http://alexanderdickson.com">Alex Dickson</a></h2>
+        <h1>Chip-8 Emulator</h1>
 
-        <p>Based on <a href="http://devernay.free.fr/hacks/chip8/C8TECH10.HTM">Cowgod's Chip-8 Technical Reference</a>.</p>
 
         <form action="" id="loader">
-            <select><option></option></select>
+			<label for="program">Program</label>
+            <select id="program"><option></option></select>
             <button type="submit">Load</button>
         </form>
 
 	    <canvas></canvas>
+		
+        <p>
+			By <a href="http://alexanderdickson.com">Alex Dickson</a>. Based on <a href="http://devernay.free.fr/hacks/chip8/C8TECH10.HTM">Cowgod's Chip-8 Technical Reference</a>.
+		</p>
 
         <script src="scripts/polyfills.js"></script>
         <script src="scripts/renderer.js"></script>
@@ -48,7 +60,7 @@
                 ch.setRenderer(new CanvasRenderer(document.getElementsByTagName("canvas")[0], ch.getDisplayWidth(), ch.getDisplayHeight(), 16));
 
                 var form = document.querySelector("#loader"),
-                    select = form.querySelector("select");
+                    select = form.querySelector("#program");
 
                 var roms = ["15PUZZLE", "BLINKY", "BLITZ", "BRIX", "CONNECT4", "GUESS", "HIDDEN", "IBM", "INVADERS", "KALEID", "MAZE", "MERLIN", "MISSILE", "PONG", "PONG2", "PUZZLE", "SYZYGY", "TANK", "TETRIS", "TICTAC", "UFO", "VBRIX", "VERS", "WIPEOFF"];
 
@@ -83,8 +95,6 @@
                     xhr.send();
 
                 });
-
-
 
                 // Key handling.
                 var translateKeys = {
