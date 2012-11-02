@@ -29,6 +29,26 @@
 		p a {
 			color: #444;
 		}
+		
+		ol {
+			width: 120px;
+			list-style: none;
+			padding: 0;
+		}
+		
+		ol li {
+			display: inline-block;
+			margin: 0 8px 8px 0;
+
+		}
+		
+		ol li kbd {
+			padding: 2px 6px;
+			background: #efefef;
+			border-radius: 3px;
+			font-size: 12px;
+			box-shadow: 1px 1px 1px #ddd;
+		}
 
     </style>
 
@@ -44,6 +64,27 @@
         </form>
 
 	    <canvas></canvas>
+		
+		<p>Chip-8 uses a hexadecimal input. Use the keys below.</p>
+		
+		<ol>
+			<li><kbd title="0">1</kbd></li>
+			<li><kbd title="1">2</kbd></li>
+			<li><kbd title="2">3</kbd></li>
+			<li><kbd title="3">4</kbd></li>
+			<li><kbd title="4">Q</kbd></li>
+			<li><kbd title="5">W</kbd></li>
+			<li><kbd title="6">E</kbd></li>
+			<li><kbd title="7">R</kbd></li>
+			<li><kbd title="8">A</kbd></li>
+			<li><kbd title="9">S</kbd></li>
+			<li><kbd title="0">D</kbd></li>
+			<li><kbd title="A">F</kbd></li>
+			<li><kbd title="B">Z</kbd></li>
+			<li><kbd title="C">X</kbd></li>
+			<li><kbd title="D">C</kbd></li>
+			<li><kbd title="E">V</kbd></li>
+		</ol>
 		
         <p>
 			By <a href="http://alexanderdickson.com">Alex Dickson</a>. Based on <a href="http://devernay.free.fr/hacks/chip8/C8TECH10.HTM">Cowgod's Chip-8 Technical Reference</a>.
@@ -98,23 +139,23 @@
 
                 // Key handling.
                 var translateKeys = {
-                    103: 0x1, // 7
-                    104: 0x2, // 8
-                    105: 0x3, // 9
-                    100: 0x4, // 4
-                    101: 0x5, // 5
-                    102: 0x6, // 6,
-                    97: 0x7,  // 1
-                    98: 0x8,  // 2
-                    99: 0x9,  // 3
-                    96: 0xA,  // 0
-                    45: 0xB,  // Insert
-                    46: 0xC,  // Delete
-                    36: 0xD,  // Home
-                    25: 0xE,  // End
-                    33: 0xF,  // PageUp
-                    34: 0x10  // PageDown
-                    }
+                    49: 0x1,  // 1
+                    50: 0x2,  // 2
+                    51: 0x3,  // 3
+                    52: 0x4,  // 4
+                    81: 0x5,  // Q
+                    87: 0x6,  // W
+                    69: 0x7,  // E
+                    82: 0x8,  // R
+                    65: 0x9,  // A
+                    83: 0xA,  // S
+                    68: 0xB,  // D
+                    70: 0xC,  // F
+                    90: 0xD,  // Z
+                    88: 0xE,  // X
+                    67: 0xF,  // C
+                    86: 0x10  // V
+                };
 
                 document.addEventListener("keydown", function(event) {
                     ch.setKey(translateKeys[event.keyCode]);
