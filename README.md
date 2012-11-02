@@ -1,4 +1,4 @@
-HuPo - Chip-8 Emulator
+Chip-8 Emulator
 ======================
 
 This is a simple Chip-8 interpreter written in JavaScript.
