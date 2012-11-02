@@ -10,6 +10,10 @@ var CanvasRenderer = function(canvas, width, height, cellSize, fgColour, bgColou
 
     canvas.width = cellSize * width;
     canvas.height = cellSize * height;
+	
+	this.audioContext = window.AudioContext && new AudioContext ||
+	                    window.webkitAudioContext && new webkitAudioContext;
+	
 };
 
 CanvasRenderer.prototype = {
@@ -31,6 +35,19 @@ CanvasRenderer.prototype = {
     },
 
     beep: function() {
+		// If Web Audio is supported, we "beep".
+		// Otherwise, we shake the display.
+		if (this.audioContext) {
+			var osc = this.audioContext.createOscillator();
+			osc.connect(this.audioContext.destination);
+			osc.type = 3;
+			osc.noteOn(0);
+			setTimeout(function() {
+				osc.noteOff(0);
+			}, 100);
+			return;
+		}
+		
         var times = 5;
         var interval = setInterval(function(canvas) {
             if ( ! times--) {
