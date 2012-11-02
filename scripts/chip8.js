@@ -38,6 +38,10 @@
      unsetKey: function(key) {
         delete this.keys[key];
      },
+	 
+	 setKeyState: function(key, depressed) {
+		this[["unset", "set"][+depressed] + "Key"](key);
+	 },
 
      setRenderer: function (renderer) {
          this.renderer = renderer;
