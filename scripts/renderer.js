@@ -1,15 +1,13 @@
-var CanvasRenderer = function(canvas, width, height, cellSize, fgColour, bgColour, beepColour) {
+var CanvasRenderer = function(canvas, width, height, cellSize, fgColor, bgColor) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.width = +width;
     this.height = +height;
-    this.cellSize = +cellSize;
+	this.lastRenderedData = [];
+    this.setCellSize(cellSize);
 
-    this.fgColour = fgColour || "#0f0";
-    this.bgColour = bgColour || "transparent";
-
-    canvas.width = cellSize * width;
-    canvas.height = cellSize * height;
+    this.fgColor = fgColor || "#0f0";
+    this.bgColor = bgColor || "transparent";
 	
 	this.audioContext = window.AudioContext && new AudioContext ||
 	                    window.webkitAudioContext && new webkitAudioContext;
@@ -24,12 +22,13 @@ CanvasRenderer.prototype = {
 
     render: function (display) {
         this.clear();
+		this.lastRenderedData = display;
         var i, x, y;
         for (i = 0; i < display.length; i++) {
               x = (i % this.width) * this.cellSize;
               y = Math.floor(i / this.width) * this.cellSize;
 
-            this.ctx.fillStyle = display[i] ? this.fgColour : this.bgColour;
+            this.ctx.fillStyle = [this.bgColor, this.fgColor][display[i]];
             this.ctx.fillRect(x, y, this.cellSize, this.cellSize);
         }
     },
@@ -57,5 +56,18 @@ CanvasRenderer.prototype = {
             canvas.style.left = times % 2 ? "-3px" : "3px";
 
         }, 50, this.canvas);
-    }
+    },
+	
+	setFgColor: function(color) {
+		this.fgColor = color;
+	},
+	
+	setCellSize: function(cellSize) {
+		this.cellSize = +cellSize;
+
+	    this.canvas.width = cellSize * this.width;
+	    this.canvas.height = cellSize * this.height;
+		
+		this.render(this.lastRenderedData);
+	}
 };

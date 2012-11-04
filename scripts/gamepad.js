@@ -8,7 +8,7 @@ var GamePad = function(callback) {
 };
 
 GamePad.prototype.start = function() {
-	if ( ! navigator.webkitGetGamepads) {
+	if ( ! GamePad.supported) {
 		return;
 	}
     this.running = true;
@@ -27,3 +27,6 @@ GamePad.prototype.tick = function() {
     webkitRequestAnimationFrame(this.tick.bind(this));
 	
 };
+
+// Check to see if gamepad is supported.
+GamePad.supported = !!navigator.webkitGetGamepads;
