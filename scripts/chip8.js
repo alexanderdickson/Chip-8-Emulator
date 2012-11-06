@@ -1,6 +1,4 @@
-
-
- var Chip8 = function () {
+var Chip8 = function () {
 
      this.displayWidth = 64;
      this.displayHeight = 32;
