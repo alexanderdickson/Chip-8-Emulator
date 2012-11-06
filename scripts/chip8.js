@@ -9,8 +9,9 @@
      this.running = null;
      this.renderer = null;
 
+	 var memory = new ArrayBuffer(0x1000);
 
-     this.memory = new Array(0x1000);
+     this.memory = new Uint8Array(memory);
      this.v = new Array(16);
      this.i = null;
      this.stack = new Array(16);
