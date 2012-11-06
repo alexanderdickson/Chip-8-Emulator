@@ -40,16 +40,33 @@
 			padding: 0;
 		}
 		
-		label {
+		label,
+		dl dt {
 			font-weight: bold;
 		}
 		
-		label::after {
+		label::after,
+		dl dt::after {
 			content: ":";
 		}
 		
 		#color {
 			margin: 0 10px -8px 0;
+		}
+		
+		dl {
+			overflow: hidden;
+		}
+		
+		dl dt {
+			width: 40px;
+			float: left;
+			clear: left;
+		}
+		
+		dl dd {
+			float: left;
+			margin-bottom: 6px;
 		}
 		
 		p,
@@ -112,6 +129,13 @@
 
 	    <canvas></canvas>
 		
+		<dl>
+			<dt>Program</dt>
+			<dd id="loaded-program">None</dd>
+			<dt><abbr title="Frames Per Second">FPS</abbr></dt>
+			<dd id="fps">0</dd>
+		</dl>
+		
 		<p>Chip-8 uses a hexadecimal input. Use the keys below, or use a gamepad if enabled.</p>
 		
 		<ol>
@@ -158,6 +182,7 @@
 				// Set up program loading form.
                 (function() {
 	                var select = document.querySelector("#program");
+					var programLoaded = document.querySelector("#loaded-program");
 	                var programs = ["15PUZZLE", "BLINKY", "BLITZ", "BRIX", "CONNECT4", "GUESS", "HIDDEN", "IBM", "INVADERS", "KALEID", "MAZE", "MERLIN", "MISSILE", "PONG", "PONG2", "PUZZLE", "SYZYGY", "TANK", "TETRIS", "TICTAC", "UFO", "VBRIX", "VERS", "WIPEOFF"];
 
 	                programs.forEach(function(program) {
@@ -185,6 +210,7 @@
 	                        ch.reset();
 	                        ch.loadProgram(new Uint8Array(xhr.response));
 	                        ch.start();
+							programLoaded.textContent = value;
 	                    };
 
 	                    xhr.send();
@@ -351,6 +377,15 @@
 	                document.addEventListener("keyup", function(event) {
 	                    ch.unsetKey(translateKeys[event.keyCode]);
 	                });
+				})();
+				
+				// FPS support.
+				(function() {
+					var fpsOutput = document.querySelector("#fps");
+					setInterval(function() {
+						fpsOutput.textContent = chRenderer.getFps().toPrecision(2);
+					}, 1e3);
+					
 				})();
 
             })();

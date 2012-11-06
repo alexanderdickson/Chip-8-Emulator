@@ -5,6 +5,8 @@ var CanvasRenderer = function(canvas, width, height, cellSize, fgColor, bgColor)
     this.height = +height;
 	this.lastRenderedData = [];
     this.setCellSize(cellSize);
+	this.lastDraw = 0;
+	this.draws = 0;
 
     this.fgColor = fgColor || "#0f0";
     this.bgColor = bgColor || "transparent";
@@ -31,6 +33,8 @@ CanvasRenderer.prototype = {
             this.ctx.fillStyle = [this.bgColor, this.fgColor][display[i]];
             this.ctx.fillRect(x, y, this.cellSize, this.cellSize);
         }
+		
+		this.draws++;
     },
 
     beep: function() {
@@ -69,5 +73,16 @@ CanvasRenderer.prototype = {
 	    this.canvas.height = cellSize * this.height;
 		
 		this.render(this.lastRenderedData);
+	},
+	
+	getFps: function() {
+
+		var fps = this.draws / (+new Date - this.lastDraw) * 1000;
+		if (fps == Infinity) {
+			return 0;
+		}
+		this.draws = 0;
+		this.lastDraw = +new Date;
+		return fps;
 	}
 };
