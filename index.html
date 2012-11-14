@@ -303,7 +303,7 @@
 				(function() {
 					var launchFullScreen = (canvas.requestFullScreen ||
 					                    canvas.mozRequestFullScreen ||
-									    canvas.webkitRequestFullScreen).bind(canvas);
+									    canvas.webkitRequestFullScreen).bind(canvas, Element.ALLOW_KEYBOARD_INPUT);
 										
 					var makeEvent = function(prefix) {
 						return "on" + prefix + "fullscreenchange";					
