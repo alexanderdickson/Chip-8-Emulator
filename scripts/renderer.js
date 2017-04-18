@@ -43,10 +43,10 @@ CanvasRenderer.prototype = {
 		if (this.audioContext) {
 			var osc = this.audioContext.createOscillator();
 			osc.connect(this.audioContext.destination);
-			osc.type = 3;
-			osc.noteOn(0);
+			osc.type = "triangle";
+			osc.start();
 			setTimeout(function() {
-				osc.noteOff(0);
+				osc.stop();
 			}, 100);
 			return;
 		}
