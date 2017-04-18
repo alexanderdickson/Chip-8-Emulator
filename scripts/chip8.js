@@ -428,8 +428,8 @@ var Chip8 = function () {
                          }
                          spr <<= 1;
                      }
-                     this.drawFlag = true;
                  }
+                 this.drawFlag = true;
 
                  break;
 
