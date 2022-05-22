@@ -139,22 +139,22 @@
 		<p>Chip-8 uses a hexadecimal input. Use the keys below, or use a gamepad if enabled.</p>
 		
 		<ol>
-			<li><kbd title="0">1</kbd></li>
-			<li><kbd title="1">2</kbd></li>
-			<li><kbd title="2">3</kbd></li>
-			<li><kbd title="3">4</kbd></li>
+			<li><kbd title="1">1</kbd></li>
+			<li><kbd title="2">2</kbd></li>
+			<li><kbd title="3">3</kbd></li>
+			<li><kbd title="C">4</kbd></li>
 			<li><kbd title="4">Q</kbd></li>
 			<li><kbd title="5">W</kbd></li>
 			<li><kbd title="6">E</kbd></li>
-			<li><kbd title="7">R</kbd></li>
-			<li><kbd title="8">A</kbd></li>
-			<li><kbd title="9">S</kbd></li>
-			<li><kbd title="0">D</kbd></li>
-			<li><kbd title="A">F</kbd></li>
-			<li><kbd title="B">Z</kbd></li>
-			<li><kbd title="C">X</kbd></li>
-			<li><kbd title="D">C</kbd></li>
-			<li><kbd title="E">V</kbd></li>
+			<li><kbd title="D">R</kbd></li>
+			<li><kbd title="7">A</kbd></li>
+			<li><kbd title="8">S</kbd></li>
+			<li><kbd title="9">D</kbd></li>
+			<li><kbd title="E">F</kbd></li>
+			<li><kbd title="A">Z</kbd></li>
+			<li><kbd title="0">X</kbd></li>
+			<li><kbd title="B">C</kbd></li>
+			<li><kbd title="F">V</kbd></li>
 		</ol>
 		
         <p>
@@ -357,19 +357,22 @@
 	                    49: 0x1,  // 1
 	                    50: 0x2,  // 2
 	                    51: 0x3,  // 3
-	                    52: 0x4,  // 4
-	                    81: 0x5,  // Q
-	                    87: 0x6,  // W
-	                    69: 0x7,  // E
-	                    82: 0x8,  // R
-	                    65: 0x9,  // A
-	                    83: 0xA,  // S
-	                    68: 0xB,  // D
-	                    70: 0xC,  // F
-	                    90: 0xD,  // Z
-	                    88: 0xE,  // X
-	                    67: 0xF,  // C
-	                    86: 0x10  // V
+	                    52: 0xC,  // 4
+				
+	                    81: 0x4,  // Q
+	                    87: 0x5,  // W
+	                    69: 0x6,  // E
+	                    82: 0xD,  // R
+				
+	                    65: 0x7,  // A
+	                    83: 0x8,  // S
+	                    68: 0x9,  // D
+	                    70: 0xE,  // F
+				
+	                    90: 0xA,  // Z
+	                    88: 0x10, // X
+	                    67: 0xB,  // C
+	                    86: 0xF   // V
 	                };
 
 	                document.addEventListener("keydown", function(event) {
